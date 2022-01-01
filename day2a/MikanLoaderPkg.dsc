@@ -27,5 +27,5 @@
 
 #@range_begin(components)
 [Components]
-  day2/Loader.inf
+  day2a/Loader.inf
 #@range_end(components)
