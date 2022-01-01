@@ -64,12 +64,12 @@ EFI_STATUS SaveMemoryMap(struct MemoryMap *map, EFI_FILE_PROTOCOL *file)
     len = AsciiStrLen(header);
     file->Write(file, &len, header);
 
-    Print(L"map->buffer = %08lx, map->map_size = %08lx\n", map->buffer, map->map_size);
+    Print(L"map->buffer = %08lx, map->map_sizse = %08lx\n", map->buffer, map->map_sizse);
 
     EFI_PHYSICAL_ADDRESS iter;
     int i;
     for (iter = (EFI_PHYSICAL_ADDRESS)map->buffer, i = 0;
-         iter < (EFI_PHYSICAL_ADDRESS)map->buffer + map->map_size;
+         iter < (EFI_PHYSICAL_ADDRESS)map->buffer + map->map_sizse;
          iter += map->descriptor_size, i++)
     {
         EFI_MEMORY_DESCRIPTOR *desc = (EFI_MEMORY_DESCRIPTOR *)iter;
@@ -114,7 +114,7 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle, EFI_SYSTEM_TABLE *system_tab
 {
     CHAR8 memmap_buf[4096 * 4];
     struct MemoryMap memmap = {sizeof(memmap_buf), memmap_buf, 0, 0, 0, 0};
-    GetMemoryMap(&memmamp);
+    GetMemoryMap(&memmap);
 
     EFI_FILE_PROTOCOL *root_dir;
     OpenRootDir(image_handle, &root_dir);
