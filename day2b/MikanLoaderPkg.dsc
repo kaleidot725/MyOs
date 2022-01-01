@@ -27,5 +27,5 @@
 
 #@range_begin(components)
 [Components]
-  day2b/Loader.inf
+  MikanLoaderPkg/Loader.inf
 #@range_end(components)
