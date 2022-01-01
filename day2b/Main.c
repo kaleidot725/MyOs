@@ -24,9 +24,9 @@ EFI_STATUS GetMemoryMap(struct MemoryMap *map)
         return EFI_BUFFER_TOO_SMALL;
     }
 
-    map->map_size = map->buffer_size;
+    map->map_sizse = map->buffer_size;
     return gBS->GetMemoryMap(
-        &map->map_size,
+        &map->map_sizse,
         (EFI_MEMORY_DESCRIPTOR *)map->buffer,
         &map->map_key,
         &map->descriptor_size,
@@ -68,7 +68,7 @@ EFI_STATUS SaveMemoryMap(struct MemoryMap *map, EFI_FILE_PROTOCOL *file)
 
     EFI_PHYSICAL_ADDRESS iter;
     int i;
-    for (iter = (EFI_PHYSICAL_ADDRESS)map_buffer, i = 0;
+    for (iter = (EFI_PHYSICAL_ADDRESS)map->buffer, i = 0;
          iter < (EFI_PHYSICAL_ADDRESS)map->buffer + map->map_size;
          iter += map->descriptor_size, i++)
     {
@@ -85,7 +85,7 @@ EFI_STATUS SaveMemoryMap(struct MemoryMap *map, EFI_FILE_PROTOCOL *file)
     return EFI_SUCCESS;
 }
 
-EFI_STATUS OpenRootDir(EFI_HANDLE image_handle, EFI_FILE_PROTOCOL* root) {
+EFI_STATUS OpenRootDir(EFI_HANDLE image_handle, EFI_FILE_PROTOCOL** root) {
     EFI_LOADED_IMAGE_PROTOCOL* loaded_image;
     EFI_SIMPLE_FILE_SYSTEM_PROTOCOL* fs;
 
