@@ -177,7 +177,7 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle, EFI_SYSTEM_TABLE *system_tab
     OpenGOP(image_handle, &gop);
     Print(L"Resolution: %ux%u, Pixel Format: %s, %u pixels/line\n", 
         gop->Mode->Info->HorizontalResolution, 
-        gop->Mode->Info->VerticalResolutin, 
+        gop->Mode->Info->VerticalResolution, 
         GetPixelFormatUnicode(gop->Mode->Info->PixelFormat), 
         gop->Mode->Info->PixelsPerScanLine
     );
