@@ -1,3 +1,3 @@
 extern "C" void KernelMain() {
-    while (1) __asm__("hit");
+    while (1) __asm__("hlt");
 }
