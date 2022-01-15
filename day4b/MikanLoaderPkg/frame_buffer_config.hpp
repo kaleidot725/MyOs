@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 enum PixelFormat {
     kPixelRGBResv8BitPerColor,
     kPixelBGRResv8BitPerColor
@@ -11,4 +13,4 @@ struct FrameBufferConfig {
     uint32_t horizontal_resolution;
     uint32_t vertical_resolution;
     enum PixelFormat pixel_format;
-}
+};

@@ -8,7 +8,7 @@
 #include  <Protocol/DiskIo2.h>
 #include  <Protocol/BlockIo.h>
 #include  <Guid/FileInfo.h>
-#include  <frame_buffer.config.hpp>
+#include "frame_buffer_config.hpp"
 
 struct MemoryMap
 {
@@ -157,6 +157,10 @@ EFI_STATUS OpenGOP(EFI_HANDLE image_handle,
   return EFI_SUCCESS;
 }
 
+void Halt(void) {
+  while (1) __asm__("hlt");
+}
+
 const CHAR16* GetPixelFormatUnicode(EFI_GRAPHICS_PIXEL_FORMAT fmt) {
   switch (fmt) {
     case PixelRedGreenBlueReserved8BitPerColor:
@@ -255,9 +259,9 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle, EFI_SYSTEM_TABLE *system_tab
         (UINT8*)gop->Mode->FrameBufferBase,
         gop->Mode->Info->PixelsPerScanLine,
         gop->Mode->Info->HorizontalResolution,
-        gop->MOde->Info->VerticalResolution,
+        gop->Mode->Info->VerticalResolution,
         0
-    }
+    };
 
     switch (gop->Mode->Info->PixelFormat) {
         case PixelRedGreenBlueReserved8BitPerColor:
@@ -267,7 +271,7 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle, EFI_SYSTEM_TABLE *system_tab
             config.pixel_format = kPixelBGRResv8BitPerColor;
             break;
         default:
-            print(L"Unimplemented pixel format: %d\n", gop->Mode->Info->PixelFormat);
+            Print(L"Unimplemented pixel format: %d\n", gop->Mode->Info->PixelFormat);
             Halt();
     }
 
