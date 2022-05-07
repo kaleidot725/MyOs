@@ -22,14 +22,14 @@ void operator delete(void* obj) noexcept {
 
 int printk(const char* format, ...) {
     va_list ap;
-    int reult;
+    int result;
     char s[1024];
 
     va_start(ap, format);
     result = vsprintf(s, format, ap);
     va_end(ap);
 
-    console->PuString(s);
+    console->PutString(s);
     return result;
 }
 
@@ -55,10 +55,10 @@ extern "C" void KernelMain(const FrameBufferConfig &frame_buffer_config)
         }
     }
 
-    console = new(console_buf) Console{*pizel_writter, {0, 0, 0}, {255, 255, 255}};
+    console = new(console_buf) Console{*pixel_writer, {0, 0, 0}, {255, 255, 255}};
 
     for (int i = 0; i < 27; ++i) {
-        printk("printK: %d\n", i);
+        printk("printk: %d\n", i);
     }
     
     while (1) __asm__("hlt");
